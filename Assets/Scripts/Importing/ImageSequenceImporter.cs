@@ -13,6 +13,7 @@ namespace UnityVolumeRendering
         private string directoryPath;
         private string[] supportedImageTypes = new string[] 
         {
+            "*.tif",
             "*.png",
             "*.jpg",
         };
