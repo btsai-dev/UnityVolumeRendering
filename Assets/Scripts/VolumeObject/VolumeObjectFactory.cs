@@ -58,6 +58,17 @@ namespace UnityVolumeRendering
             CrossSectionPlane csplane = quad.gameObject.GetComponent<CrossSectionPlane>();
             csplane.targetObject = volobj;
             quad.transform.position = volobj.transform.position;
+            var pos = quad.transform.position;
+            var meshBounds = volobj.GetComponentInChildren<MeshRenderer>().bounds;
+            var x_min = meshBounds.min.x;
+            var x_max = meshBounds.min.x;
+            var y_min = meshBounds.min.y;
+            var y_max = meshBounds.min.y;
+            var z_min = meshBounds.min.z;
+            var z_max = meshBounds.min.z;
+            pos.x =  Mathf.Clamp(quad.transform.position.x, x_min, x_max);
+            pos.y =  Mathf.Clamp(quad.transform.position.y, y_min, y_max);
+            pos.z =  Mathf.Clamp(quad.transform.position.z, z_min, z_max);
 
 #if UNITY_EDITOR
             UnityEditor.Selection.objects = new UnityEngine.Object[] { quad };

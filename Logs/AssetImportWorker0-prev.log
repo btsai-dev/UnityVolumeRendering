@@ -15,12 +15,12 @@ C:/Users/Godonan/Documents/!! Research/Repositories/UnityVolumeRendering
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-60817
+51581
 Successfully changed project path to: C:/Users/Godonan/Documents/!! Research/Repositories/UnityVolumeRendering
 C:/Users/Godonan/Documents/!! Research/Repositories/UnityVolumeRendering
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 71.31 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 1.86 ms.
+Refreshing native plugins compatible for Editor in 68.87 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 1.77 ms.
 Initialize engine version: 2020.3.7f1 (dd97f2c94397)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/Godonan/Documents/!! Research/Repositories/UnityVolumeRendering/Assets
@@ -36,23 +36,23 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56864
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56836
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002634 seconds.
+Registered in 0.002073 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 63.81 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.16 ms.
+Refreshing native plugins compatible for Editor in 58.30 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.12 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.628 seconds
+- Completed reload, in  1.620 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.006555 seconds.
+Registered in 0.006371 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 58.97 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.13 ms.
+Refreshing native plugins compatible for Editor in 58.42 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.12 ms.
 [XR] OculusXRPlugin: registering subsystems
 [XR] Unable to register display lifecyle provider: [1]
 [XR] Oculus Input lifecycle provider registered.
@@ -64,68 +64,196 @@ NullReferenceException: Object reference not set to an instance of an object
 (Filename: Library/PackageCache/com.unity.xr.oculus@1.9.1/Runtime/OculusLoader.cs Line: 249)
 
 Mono: successfully reloaded assembly
-- Completed reload, in  1.009 seconds
+- Completed reload, in  1.014 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
-Refreshing native plugins compatible for Editor in 0.81 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.11 ms.
-Unloading 3091 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 137.7 MB.
-System memory in use after: 137.8 MB.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.86 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.10 ms.
+Unloading 3169 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 145.4 MB.
+System memory in use after: 145.4 MB.
 
-Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 3536.
-Total: 2.527600 ms (FindLiveObjects: 0.335900 ms CreateObjectMapping: 0.083100 ms MarkObjects: 2.043800 ms  DeleteObjects: 0.063500 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Samples
-  artifactKey: Guid(4ebfdfd269b4fe14eb5a0f2197fa43ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples using Guid(4ebfdfd269b4fe14eb5a0f2197fa43ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c68927b06181b9edd7f5ac9d92c5a2d0') in 0.028416 seconds
-  Import took 0.033130 seconds .
+Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 3621.
+Total: 2.647300 ms (FindLiveObjects: 0.431400 ms CreateObjectMapping: 0.087100 ms MarkObjects: 2.057600 ms  DeleteObjects: 0.069800 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 12.818662 seconds.
-  path: Assets/Samples/XR Interaction Toolkit
-  artifactKey: Guid(1fecf380237847b40b40f59c097c2aee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit using Guid(1fecf380237847b40b40f59c097c2aee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb8ad6ca3b62bf1e8681ca9cf30eebf4') in 0.003738 seconds
-  Import took 0.008178 seconds .
+  path: Assets/Editor/EditorDatasetImporter.cs
+  artifactKey: Guid(ac8d63b38b94eaa41a1b278199de05cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/EditorDatasetImporter.cs using Guid(ac8d63b38b94eaa41a1b278199de05cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2975f7bf9700f4bde33cb5d4514cbfb7') in 0.021017 seconds
+  Import took 0.026200 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.617074 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/0.10.0-preview.7
-  artifactKey: Guid(413956c83d22dd543a136a4b4e70f7d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/0.10.0-preview.7 using Guid(413956c83d22dd543a136a4b4e70f7d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5f3beac8d82def3036827d177949812') in 0.002866 seconds
-  Import took 0.007150 seconds .
+  Time since last request: 0.000284 seconds.
+  path: Assets/Editor/CrossSectionPlaneEditorWindow.cs
+  artifactKey: Guid(65c90ba65e3f5f1428066ae352ebb5b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/CrossSectionPlaneEditorWindow.cs using Guid(65c90ba65e3f5f1428066ae352ebb5b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60fa583f0b762509025b043f2b58f97a') in 0.003280 seconds
+  Import took 0.007665 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.784752 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4
-  artifactKey: Guid(aa5ddfd2ef0cb9c4c88ca14607479dc5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4 using Guid(aa5ddfd2ef0cb9c4c88ca14607479dc5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25b8ed635bc9c895355924044053dc4d') in 0.004127 seconds
-  Import took 0.008471 seconds .
+  Time since last request: 8.310479 seconds.
+  path: Assets/Editor/RAWDatasetImporterEditorWIndow.cs
+  artifactKey: Guid(a6938a09f67b77c4b9e832cf63203399) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/RAWDatasetImporterEditorWIndow.cs using Guid(a6938a09f67b77c4b9e832cf63203399) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eabb27cdd4b976d6cb2d3286048d4076') in 0.003470 seconds
+  Import took 0.008376 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000468 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4
-  artifactKey: Guid(aa5ddfd2ef0cb9c4c88ca14607479dc5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4 using Guid(aa5ddfd2ef0cb9c4c88ca14607479dc5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25b8ed635bc9c895355924044053dc4d') in 0.002822 seconds
-  Import took 0.007746 seconds .
+  Time since last request: 0.324067 seconds.
+  path: Assets/Editor/SelectionHelper.cs
+  artifactKey: Guid(0fe93c0b29b1f474ebcfd15be9ef1c9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/SelectionHelper.cs using Guid(0fe93c0b29b1f474ebcfd15be9ef1c9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb4d6cbfe8928dc35baf7d79b5b4f0e3') in 0.003005 seconds
+  Import took 0.007789 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.683302 seconds.
+  path: Assets/Editor/SliceRenderingEditorWindow.cs
+  artifactKey: Guid(2e19a0c1e0a5b4549b24573fe37a93bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/SliceRenderingEditorWindow.cs using Guid(2e19a0c1e0a5b4549b24573fe37a93bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a436035e06d1b4a7b3d6377ee21bb60') in 0.003034 seconds
+  Import took 0.007966 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001298 seconds.
+  path: Assets/Editor/SliceRenderingEditorWindow.cs
+  artifactKey: Guid(2e19a0c1e0a5b4549b24573fe37a93bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/SliceRenderingEditorWindow.cs using Guid(2e19a0c1e0a5b4549b24573fe37a93bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a436035e06d1b4a7b3d6377ee21bb60') in 0.002876 seconds
+  Import took 0.007213 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 80.674219 seconds.
+  path: Assets/Editor/TransferFunction2DEditorWindow.cs
+  artifactKey: Guid(7c33fa0e57df66e49b98d2fd36e14e14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/TransferFunction2DEditorWindow.cs using Guid(7c33fa0e57df66e49b98d2fd36e14e14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e84e8feb476fce6e969d78e486d9a24a') in 0.003218 seconds
+  Import took 0.008015 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000361 seconds.
+  path: Assets/Editor/TransferFunction2DEditorWindow.cs
+  artifactKey: Guid(7c33fa0e57df66e49b98d2fd36e14e14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/TransferFunction2DEditorWindow.cs using Guid(7c33fa0e57df66e49b98d2fd36e14e14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e84e8feb476fce6e969d78e486d9a24a') in 0.002580 seconds
+  Import took 0.006599 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.732757 seconds.
+  path: Assets/Editor/TransferFunctionEditorWindow.cs
+  artifactKey: Guid(6bea1cf561897604ea2e430d753f593e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/TransferFunctionEditorWindow.cs using Guid(6bea1cf561897604ea2e430d753f593e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e431164e015c2855722c7927a6121a2') in 0.002919 seconds
+  Import took 0.007725 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002019 seconds.
+  path: Assets/Editor/TransferFunctionEditorWindow.cs
+  artifactKey: Guid(6bea1cf561897604ea2e430d753f593e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/TransferFunctionEditorWindow.cs using Guid(6bea1cf561897604ea2e430d753f593e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e431164e015c2855722c7927a6121a2') in 0.002874 seconds
+  Import took 0.007024 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.918611 seconds.
+  path: Assets/Editor/ValueRangeEditorWindow.cs
+  artifactKey: Guid(ee118a9cb00018d46820f9246a25e3d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/ValueRangeEditorWindow.cs using Guid(ee118a9cb00018d46820f9246a25e3d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb6bab2d815f38723705010590b087a2') in 0.002775 seconds
+  Import took 0.007462 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000626 seconds.
+  path: Assets/Editor/ValueRangeEditorWindow.cs
+  artifactKey: Guid(ee118a9cb00018d46820f9246a25e3d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/ValueRangeEditorWindow.cs using Guid(ee118a9cb00018d46820f9246a25e3d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb6bab2d815f38723705010590b087a2') in 0.002468 seconds
+  Import took 0.006356 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.559882 seconds.
+  path: Assets/Editor/VolumeRenderedObjectCustomInspector.cs
+  artifactKey: Guid(af5b051c5cf4f824c999ee444c9acff6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/VolumeRenderedObjectCustomInspector.cs using Guid(af5b051c5cf4f824c999ee444c9acff6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0ee6f3d2fd2b32f5e7bd245ceabc4b5') in 0.003086 seconds
+  Import took 0.007757 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.787485 seconds.
+  path: Assets/Editor/VolumeRendererEditorFunctions.cs
+  artifactKey: Guid(3b47c51242b1c10429411c0ce01c5760) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/VolumeRendererEditorFunctions.cs using Guid(3b47c51242b1c10429411c0ce01c5760) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4731eb384148cdd334271e765461a025') in 0.002854 seconds
+  Import took 0.007460 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 271.886735 seconds.
+  path: Assets/Resources/CrossSectionPlaneOld.prefab
+  artifactKey: Guid(671499143f6b4e24ab0822e1462a78aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlaneOld.prefab using Guid(671499143f6b4e24ab0822e1462a78aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8937a6fc4008e72a772eddf7428e5f50') in 0.169967 seconds
+  Import took 0.175271 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.004729 seconds.
+  path: Assets/Resources/CrossSectionPlane.prefab
+  artifactKey: Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane.prefab using Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c40bd7488d76e7c085bff16d13b8a5ca') in 0.033515 seconds
+  Import took 0.038326 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000946 seconds.
+  path: Assets/Resources/CrossSectionPlane.prefab
+  artifactKey: Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane.prefab using Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c40bd7488d76e7c085bff16d13b8a5ca') in 0.008871 seconds
+  Import took 0.013135 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 36.572055 seconds.
+  path: Assets/Resources/CrossSectionPlane 1.prefab
+  artifactKey: Guid(e409dc823f72ede4f95f67a4fbf04aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane 1.prefab using Guid(e409dc823f72ede4f95f67a4fbf04aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee049edd32306bc476c4bc0453f8dc3e') in 0.026488 seconds
+  Import took 0.031650 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.013076 seconds.
+  path: Assets/Resources/CrossSectionPlane 1.prefab
+  artifactKey: Guid(e409dc823f72ede4f95f67a4fbf04aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane 1.prefab using Guid(e409dc823f72ede4f95f67a4fbf04aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee049edd32306bc476c4bc0453f8dc3e') in 0.008380 seconds
+  Import took 0.012906 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.786187 seconds.
+  path: Assets/Resources/CrossSectionPlane 1.prefab
+  artifactKey: Guid(e409dc823f72ede4f95f67a4fbf04aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane 1.prefab using Guid(e409dc823f72ede4f95f67a4fbf04aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6872f810698813b1a8182340d133300') in 0.008592 seconds
+  Import took 0.013438 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.209216 seconds.
+  path: Assets/Resources/CrossSectionPlane.prefab
+  artifactKey: Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane.prefab using Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59d9572b656e8752569ea44b5776eda9') in 0.023286 seconds
+  Import took 0.028064 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.007057 seconds.
+Registered in 0.006910 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.37 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.17 ms.
+Refreshing native plugins compatible for Editor in 1.00 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.12 ms.
 NullReferenceException: Object reference not set to an instance of an object
   at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00048] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:249 
   at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0007b] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:234 
@@ -133,26 +261,26 @@ NullReferenceException: Object reference not set to an instance of an object
 (Filename: Library/PackageCache/com.unity.xr.oculus@1.9.1/Runtime/OculusLoader.cs Line: 249)
 
 Mono: successfully reloaded assembly
-- Completed reload, in  0.899 seconds
+- Completed reload, in  0.996 seconds
 Platform modules already initialized, skipping
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.83 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.12 ms.
-Unloading 3028 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 131.8 MB.
-System memory in use after: 132.0 MB.
+Refreshing native plugins compatible for Editor in 0.95 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.14 ms.
+Unloading 3029 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 149.2 MB.
+System memory in use after: 149.5 MB.
 
-Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3569.
-Total: 2.503300 ms (FindLiveObjects: 0.344300 ms CreateObjectMapping: 0.082400 ms MarkObjects: 2.047000 ms  DeleteObjects: 0.028200 ms)
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3670.
+Total: 2.281700 ms (FindLiveObjects: 0.332600 ms CreateObjectMapping: 0.087200 ms MarkObjects: 1.840900 ms  DeleteObjects: 0.019900 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.006603 seconds.
+Registered in 0.006126 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.87 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.09 ms.
+Refreshing native plugins compatible for Editor in 0.88 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.13 ms.
 NullReferenceException: Object reference not set to an instance of an object
   at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00048] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:249 
   at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0007b] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:234 
@@ -160,99 +288,24 @@ NullReferenceException: Object reference not set to an instance of an object
 (Filename: Library/PackageCache/com.unity.xr.oculus@1.9.1/Runtime/OculusLoader.cs Line: 249)
 
 Mono: successfully reloaded assembly
-- Completed reload, in  0.907 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.84 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.09 ms.
-Unloading 3028 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 142.1 MB.
-System memory in use after: 142.4 MB.
-
-Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3573.
-Total: 2.289900 ms (FindLiveObjects: 0.336800 ms CreateObjectMapping: 0.080300 ms MarkObjects: 1.849500 ms  DeleteObjects: 0.022300 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 104.364288 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions
-  artifactKey: Guid(4f0b3cfa24a90654781185dad607a75a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions using Guid(4f0b3cfa24a90654781185dad607a75a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5bece7dff5830f54a488b1a54d05b5bb') in 0.007418 seconds
-  Import took 0.013303 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.062499 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Continuous Move.preset
-  artifactKey: Guid(91f9da00cfdac5d49955df2d2d820b9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Continuous Move.preset using Guid(91f9da00cfdac5d49955df2d2d820b9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '344b88c511f511cb2b546855440a6a56') in 0.045650 seconds
-  Import took 0.051697 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000272 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Left Controller.preset
-  artifactKey: Guid(ffd8268f7307a0c48a067dad4a8fe060) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Left Controller.preset using Guid(ffd8268f7307a0c48a067dad4a8fe060) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9fd7aeae9ccd3417c8916cd7b63967e') in 0.011455 seconds
-  Import took 0.015751 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000293 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Snap Turn.preset
-  artifactKey: Guid(18697d253d848974aa7052cba872c9f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Snap Turn.preset using Guid(18697d253d848974aa7052cba872c9f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03b0dc6b10c537712de68144002e386c') in 0.006932 seconds
-  Import took 0.011288 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000262 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Input Actions.inputactions
-  artifactKey: Guid(c348712bda248c246b8c49b3db54643f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Input Actions.inputactions using Guid(c348712bda248c246b8c49b3db54643f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d73282127e0d44a266f4a426f93008c') in 0.009456 seconds
-  Import took 0.013881 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000273 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Continuous Turn.preset
-  artifactKey: Guid(0caad3af14f9a414dbdf25ed41e5aa47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Continuous Turn.preset using Guid(0caad3af14f9a414dbdf25ed41e5aa47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2327a70f6fa9db33dc3a9b464a870ec6') in 0.006416 seconds
-  Import took 0.010704 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000311 seconds.
-  path: Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Right Controller.preset
-  artifactKey: Guid(1421ad86ff3787b4dae70fe9e699a25f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Samples/XR Interaction Toolkit/1.0.0-pre.4/Default Input Actions/XRI Default Right Controller.preset using Guid(1421ad86ff3787b4dae70fe9e699a25f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c98e371287d9a762468d8b237311a66a') in 0.005469 seconds
-  Import took 0.010402 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.008857 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.87 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.12 ms.
-NullReferenceException: Object reference not set to an instance of an object
-  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00048] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:249 
-  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0007b] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:234 
-
-(Filename: Library/PackageCache/com.unity.xr.oculus@1.9.1/Runtime/OculusLoader.cs Line: 249)
-
-Mono: successfully reloaded assembly
-- Completed reload, in  0.947 seconds
+- Completed reload, in  0.917 seconds
 Platform modules already initialized, skipping
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Refreshing native plugins compatible for Editor in 0.86 ms, found 9 plugins.
-Preloading 1 native plugins for Editor in 0.14 ms.
-Unloading 3028 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 142.2 MB.
-System memory in use after: 142.5 MB.
+Preloading 1 native plugins for Editor in 0.09 ms.
+Unloading 3029 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 149.3 MB.
+System memory in use after: 149.5 MB.
 
-Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3577.
-Total: 2.640400 ms (FindLiveObjects: 0.527000 ms CreateObjectMapping: 0.103900 ms MarkObjects: 1.961600 ms  DeleteObjects: 0.046200 ms)
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3674.
+Total: 2.419500 ms (FindLiveObjects: 0.322500 ms CreateObjectMapping: 0.082300 ms MarkObjects: 1.991700 ms  DeleteObjects: 0.021100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 271.915379 seconds.
+  path: Assets/Resources/CrossSectionPlane.prefab
+  artifactKey: Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CrossSectionPlane.prefab using Guid(f236b0fe54cbb3a498d0c736460adef7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77bd470d32bffa6f881e59b572379331') in 0.149748 seconds
+  Import took 0.155033 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
