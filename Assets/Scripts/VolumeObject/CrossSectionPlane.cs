@@ -30,9 +30,6 @@ namespace UnityVolumeRendering
             y_max = meshBounds.max.y;
             z_min = meshBounds.min.z;
             z_max = meshBounds.max.z;
-            Debug.Log("X values; " + x_min.ToString() + ", " + x_max.ToString());
-            Debug.Log("Y values; " + y_min.ToString() + ", " + y_max.ToString());
-            Debug.Log("Z values; " + z_min.ToString() + ", " + z_max.ToString());
         }
 
         private void OnDisable()
@@ -49,7 +46,7 @@ namespace UnityVolumeRendering
             Material mat = targetObject.meshRenderer.sharedMaterial;
 
             Vector3 clampedPosition = transform.position;
-            clampedPosition.x =  Mathf.Clamp(transform.position.x, x_min*2, x_max*2);
+            clampedPosition.x =  Mathf.Clamp(transform.position.x, x_min*2, x_max*2 );
             clampedPosition.y =  Mathf.Clamp(transform.position.y, y_min*2, y_max*2);
             clampedPosition.z =  Mathf.Clamp(transform.position.z, z_min*2, z_max*2);
 

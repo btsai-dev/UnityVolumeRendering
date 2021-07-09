@@ -822,3 +822,31 @@ System memory in use after: 149.8 MB.
 Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3747.
 Total: 2.444000 ms (FindLiveObjects: 0.350900 ms CreateObjectMapping: 0.082000 ms MarkObjects: 1.991500 ms  DeleteObjects: 0.018100 ms)
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007714 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.92 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.10 ms.
+NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00048] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:249 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0007b] in C:\Users\Godonan\Documents\!! Research\Repositories\UnityVolumeRendering\Library\PackageCache\com.unity.xr.oculus@1.9.1\Runtime\OculusLoader.cs:234 
+
+(Filename: Library/PackageCache/com.unity.xr.oculus@1.9.1/Runtime/OculusLoader.cs Line: 249)
+
+Mono: successfully reloaded assembly
+- Completed reload, in  0.992 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.86 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.09 ms.
+Unloading 3030 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 149.6 MB.
+System memory in use after: 149.9 MB.
+
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 3751.
+Total: 2.833200 ms (FindLiveObjects: 0.369300 ms CreateObjectMapping: 0.082000 ms MarkObjects: 2.348600 ms  DeleteObjects: 0.031500 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
