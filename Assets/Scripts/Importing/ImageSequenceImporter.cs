@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Unity.Profiling;
 
 namespace UnityVolumeRendering
 {
@@ -10,12 +11,14 @@ namespace UnityVolumeRendering
     /// </summary>
     public class ImageSequenceImporter : DatasetImporterBase
     {
+        ProfilerRecorder totalReservedMemoryRecorder;
+        ProfilerRecorder gcReservedMemoryRecorder;
+        ProfilerRecorder systemUsedMemoryRecorder;
         private string directoryPath;
         private string[] supportedImageTypes = new string[] 
         {
-            "*.tif",
             "*.png",
-            "*.jpg",
+            "*.jpg"
         };
 
         public ImageSequenceImporter(string directoryPath)
@@ -23,21 +26,47 @@ namespace UnityVolumeRendering
             this.directoryPath = directoryPath;
         }
 
+        private void printMemDebug(string statement)
+        {
+            Debug.Log(statement);
+            if (totalReservedMemoryRecorder.Valid)
+                Debug.Log($"Total Reserved Memory: {totalReservedMemoryRecorder.LastValue}");
+            if (gcReservedMemoryRecorder.Valid)
+                Debug.Log($"GC Reserved Memory: {gcReservedMemoryRecorder.LastValue}");
+            if (systemUsedMemoryRecorder.Valid)
+                Debug.Log($"System Used Memory: {systemUsedMemoryRecorder.LastValue}");
+        }
+
         public override VolumeDataset Import()
         {
+            totalReservedMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "Total Reserved Memory");
+            gcReservedMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Reserved Memory");
+            systemUsedMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "System Used Memory");
+
+            printMemDebug("Import start memory use");
+
             if (!Directory.Exists(directoryPath))
                 throw new NullReferenceException("No directory found: " + directoryPath);
 
             List<string> imagePaths = GetSortedImagePaths();
 
-            if (!ImageSetHasUniformDimensions(imagePaths))
+            Vector3Int volume_dimensions = GetVolumeDimensions(imagePaths);
+            Vector2Int flat_dimensions = new Vector2Int()
+            {
+                x = volume_dimensions.x,
+                y = volume_dimensions.y
+            };
+
+            if (!AssertIdenticalDimension(imagePaths, flat_dimensions))
                 throw new IndexOutOfRangeException("Image sequence has non-uniform dimensions");
 
-            Vector3Int dimensions = GetVolumeDimensions(imagePaths);
-            int[] data = FillSequentialData(dimensions, imagePaths);
-            VolumeDataset dataset = FillVolumeDataset(data, dimensions);
+            int[] data = FillSequentialData(volume_dimensions, imagePaths);
+            
+            // VolumeDataset dataset = FillVolumeDataset(data, dimensions);
 
-            return dataset;
+            //return dataset;
+            Debug.Log("DONE.");
+            return null;
         }
 
         /// <summary>
@@ -63,27 +92,17 @@ namespace UnityVolumeRendering
         /// </summary>
         /// <param name="imagePaths">The list of image paths to check.</param>
         /// <returns>True if at least one image differs from another.</returns>
-        private bool ImageSetHasUniformDimensions(List<string> imagePaths)
+        private bool AssertIdenticalDimension(List<string> imagePaths, Vector2Int dimensions)
         {
-            bool hasUniformDimension = true;
-
-            Vector2Int previous, current;
-            previous = GetImageDimensions(imagePaths[0]);
-
-            foreach (var path in imagePaths)
+            foreach (string path in imagePaths)
             {
-                current = GetImageDimensions(path);
-
-                if (current.x != previous.x || current.y != previous.y)
+                Vector2Int current = GetImageDimensions(path);
+                if (current.x != dimensions.x || current.y != dimensions.y)
                 {
-                    hasUniformDimension = false;
-                    break;
+                    return false;
                 }
-
-                previous = current;
             }
-
-            return hasUniformDimension;
+            return true;
         }
 
         /// <summary>
@@ -96,6 +115,7 @@ namespace UnityVolumeRendering
             byte[] bytes = File.ReadAllBytes(path);
 
             Texture2D texture = new Texture2D(1, 1);
+            //texture.hideFlags = HideFlags.HideAndDontSave;  // Fix memory leak
             texture.LoadImage(bytes);
 
             Vector2Int dimensions = new Vector2Int()
@@ -103,7 +123,8 @@ namespace UnityVolumeRendering
                 x = texture.width,
                 y = texture.height
             };
-
+            
+            UnityEngine.Object.DestroyImmediate(texture);            // Fix memory leak
             return dimensions;
         }
 
@@ -133,10 +154,12 @@ namespace UnityVolumeRendering
         private int[] FillSequentialData(Vector3Int dimensions, List<string> paths)
         {
             var data = new List<int>(dimensions.x * dimensions.y * dimensions.z);
-            var texture = new Texture2D(1, 1);
+            
 
             foreach (var path in paths)
             {
+                var texture = new Texture2D(1, 1);
+                //texture.hideFlags = HideFlags.HideAndDontSave;  // Fix memory leak
                 byte[] bytes = File.ReadAllBytes(path);
                 texture.LoadImage(bytes);
 
@@ -144,6 +167,7 @@ namespace UnityVolumeRendering
                 int[] imageData = DensityHelper.ConvertColorsToDensities(pixels);
 
                 data.AddRange(imageData);
+                UnityEngine.Object.DestroyImmediate(texture);            // Fix memory leak
             }
 
             return data.ToArray();
