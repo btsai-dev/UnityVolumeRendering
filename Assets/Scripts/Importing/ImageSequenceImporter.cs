@@ -26,24 +26,8 @@ namespace UnityVolumeRendering
             this.directoryPath = directoryPath;
         }
 
-        private void printMemDebug(string statement)
-        {
-            Debug.Log(statement);
-            if (totalReservedMemoryRecorder.Valid)
-                Debug.Log($"Total Reserved Memory: {totalReservedMemoryRecorder.LastValue}");
-            if (gcReservedMemoryRecorder.Valid)
-                Debug.Log($"GC Reserved Memory: {gcReservedMemoryRecorder.LastValue}");
-            if (systemUsedMemoryRecorder.Valid)
-                Debug.Log($"System Used Memory: {systemUsedMemoryRecorder.LastValue}");
-        }
-
         public override VolumeDataset Import()
         {
-            totalReservedMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "Total Reserved Memory");
-            gcReservedMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Reserved Memory");
-            systemUsedMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "System Used Memory");
-
-            printMemDebug("Import start memory use");
 
             if (!Directory.Exists(directoryPath))
                 throw new NullReferenceException("No directory found: " + directoryPath);
@@ -57,16 +41,21 @@ namespace UnityVolumeRendering
                 y = volume_dimensions.y
             };
 
+            int face_dim = volume_dimensions.x * volume_dimensions.y;
+            if ((Int32.MaxValue / face_dim) + 1 < volume_dimensions.z)
+            {
+                throw new IndexOutOfRangeException("Beyond reasonable size, " + face_dim + " * " + volume_dimensions.z + " greater than Int32's max val");
+            }
+
             if (!AssertIdenticalDimension(imagePaths, flat_dimensions))
                 throw new IndexOutOfRangeException("Image sequence has non-uniform dimensions");
 
             int[] data = FillSequentialData(volume_dimensions, imagePaths);
             
-            // VolumeDataset dataset = FillVolumeDataset(data, dimensions);
+            VolumeDataset dataset = FillVolumeDataset(data, volume_dimensions);
 
-            //return dataset;
-            Debug.Log("DONE.");
-            return null;
+            Debug.Log("Done importing.");
+            return dataset;
         }
 
         /// <summary>
@@ -153,6 +142,7 @@ namespace UnityVolumeRendering
         /// <returns>The set of sequential values for the volume.</returns>
         private int[] FillSequentialData(Vector3Int dimensions, List<string> paths)
         {
+            
             var data = new List<int>(dimensions.x * dimensions.y * dimensions.z);
             
 

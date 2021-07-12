@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Threading;
+using Unity.Jobs;
+using UnityEngine.Jobs;
 
 namespace UnityVolumeRendering
 {
@@ -20,6 +23,7 @@ namespace UnityVolumeRendering
         private RenderMode renderMode;
         private TFRenderMode tfRenderMode;
         private bool lightingEnabled;
+        private Thread renderUpdateThread;
 
         private Vector2 visibilityWindow = new Vector2(0.0f, 1.0f);
 
@@ -99,25 +103,37 @@ namespace UnityVolumeRendering
 
         private void UpdateMaaterialProperties()
         {
+            Debug.Log("Updating material properties.");
+            
             bool useGradientTexture = tfRenderMode == TFRenderMode.TF2D || renderMode == RenderMode.IsosurfaceRendering || lightingEnabled;
-            meshRenderer.sharedMaterial.SetTexture("_GradientTex", useGradientTexture ? dataset.GetGradientTexture() : null);
+            
+            // This will cause a major lag spike
+            
+            // meshRenderer.sharedMaterial.SetTexture("_GradientTex", useGradientTexture ? dataset.GetGradientTexture() : null);
+            
 
+            
             if(tfRenderMode == TFRenderMode.TF2D)
             {
+                Debug.Log("Detecting a 2D transfer function!");
                 meshRenderer.sharedMaterial.SetTexture("_TFTex", transferFunction2D.GetTexture());
                 meshRenderer.sharedMaterial.EnableKeyword("TF2D_ON");
             }
             else
             {
+                Debug.Log("Detecting a 1D transfer function!");
                 meshRenderer.sharedMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
                 meshRenderer.sharedMaterial.DisableKeyword("TF2D_ON");
             }
+            
 
             if(lightingEnabled)
                 meshRenderer.sharedMaterial.EnableKeyword("LIGHTING_ON");
             else
                 meshRenderer.sharedMaterial.DisableKeyword("LIGHTING_ON");
+                
 
+            
             switch (renderMode)
             {
                 case RenderMode.DirectVolumeRendering:
@@ -142,14 +158,29 @@ namespace UnityVolumeRendering
                         break;
                     }
             }
+            
 
             meshRenderer.sharedMaterial.SetFloat("_MinVal", visibilityWindow.x);
             meshRenderer.sharedMaterial.SetFloat("_MaxVal", visibilityWindow.y);
         }
 
+/**
+        private void OnDestroy()
+        {
+            renderUpdateThread.Abort();
+        }
+
+        private void OnApplicationQuit()
+        {
+            renderUpdateThread.Abort();
+        }
+        */
+
+/**
         private void Start()
         {
             UpdateMaaterialProperties();
         }
+        */
     }
 }

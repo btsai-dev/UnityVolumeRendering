@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+
 namespace UnityVolumeRendering
 {
     public class VolumeObjectFactory
@@ -9,7 +10,7 @@ namespace UnityVolumeRendering
         {
             GameObject outerObject = new GameObject("VolumeRenderedObject_" + dataset.datasetName);
             VolumeRenderedObject volObj = outerObject.AddComponent<VolumeRenderedObject>();
-
+            
             GameObject meshContainer = GameObject.Instantiate((GameObject)Resources.Load("VolumeContainer"));
             meshContainer.transform.parent = outerObject.transform;
             meshContainer.transform.localScale = Vector3.one;
@@ -41,12 +42,14 @@ namespace UnityVolumeRendering
             meshRenderer.sharedMaterial.EnableKeyword("MODE_DVR");
             meshRenderer.sharedMaterial.DisableKeyword("MODE_MIP");
             meshRenderer.sharedMaterial.DisableKeyword("MODE_SURF");
+            
 
             if(dataset.scaleX != 0.0f && dataset.scaleY != 0.0f && dataset.scaleZ != 0.0f)
             {
                 float maxScale = Mathf.Max(dataset.scaleX, dataset.scaleY, dataset.scaleZ);
                 volObj.transform.localScale = new Vector3(dataset.scaleX / maxScale, dataset.scaleY / maxScale, dataset.scaleZ / maxScale);
             }
+            
 
             return volObj;
         }

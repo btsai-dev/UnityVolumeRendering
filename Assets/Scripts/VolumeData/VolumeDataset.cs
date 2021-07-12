@@ -99,6 +99,8 @@ namespace UnityVolumeRendering
             Texture3D texture = new Texture3D(dimX, dimY, dimZ, texformat, false);
             texture.wrapMode = TextureWrapMode.Clamp;
 
+            // Mathematics = something that can be sped up!
+
             int minValue = GetMinDataValue();
             int maxValue = GetMaxDataValue();
             int maxRange = maxValue - minValue;
@@ -129,5 +131,6 @@ namespace UnityVolumeRendering
             texture.Apply();
             return texture;
         }
+
     }
 }
