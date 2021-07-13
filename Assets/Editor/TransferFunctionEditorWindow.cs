@@ -18,6 +18,7 @@ namespace UnityVolumeRendering
         [MenuItem("Volume Rendering/1D Transfer Function")]
         public static void ShowWindow()
         {
+            Debug.Log("Executing On Enable for editor window!");
             // Close all (if any) 2D TF editor windows
             TransferFunction2DEditorWindow[] tf2dWnds = Resources.FindObjectsOfTypeAll<TransferFunction2DEditorWindow>();
             foreach (TransferFunction2DEditorWindow tf2dWnd in tf2dWnds)
@@ -41,6 +42,7 @@ namespace UnityVolumeRendering
 
         private void OnEnable()
         {
+            Debug.Log("Executing On Enable for editor window!");
             tfGUIMat = Resources.Load<Material>("TransferFunctionGUIMat");
             tfPaletteGUIMat = Resources.Load<Material>("TransferFunctionPaletteGUIMat");
 
@@ -58,6 +60,7 @@ namespace UnityVolumeRendering
 
         private void OnGUI()
         {
+            Debug.Log("Executing On GUI for editor window!");
             // Update selected object
             if (volRendObject == null)
                 volRendObject = SelectionHelper.GetSelectedVolumeObject();
@@ -95,6 +98,8 @@ namespace UnityVolumeRendering
             tfPaletteGUIMat.SetTexture("_TFTex", tf.GetTexture());
             Graphics.DrawTexture(new Rect(bgRect.x, bgRect.y + bgRect.height + 20, bgRect.width, 20.0f), tfTexture, tfPaletteGUIMat);
 
+            
+            
             // Colour control points
             for (int iCol = 0; iCol < tf.colourControlPoints.Count; iCol++)
             {
@@ -127,10 +132,12 @@ namespace UnityVolumeRendering
                 tf.colourControlPoints[iCol] = colPoint;
             }
 
+            Debug.Log("Number of control poinsts: " + tf.alphaControlPoints.Count);
             // Alpha control points
             for (int iAlpha = 0; iAlpha < tf.alphaControlPoints.Count; iAlpha++)
             {
                 TFAlphaControlPoint alphaPoint = tf.alphaControlPoints[iAlpha];
+                
                 Rect ctrlBox = new Rect(bgRect.x + bgRect.width * alphaPoint.dataValue, bgRect.y + (1.0f - alphaPoint.alphaValue) * bgRect.height, 10, 10);
                 GUI.color = oldColour;
                 GUI.skin.box.fontSize = 6;

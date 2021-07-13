@@ -12,6 +12,7 @@ namespace UnityVolumeRendering
             wnd.Show();
         }
 
+        /**
         private void OnGUI()
         {
             // Update selected object
@@ -33,5 +34,6 @@ namespace UnityVolumeRendering
 
             volRendObject.SetVisibilityWindow(visibilityWindow);
         }
+        */
     }
 }

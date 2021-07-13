@@ -138,6 +138,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.unity.uiextensions": {
+      "version": "2.2.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.org"
+    },
     "com.unity.xr.interaction.toolkit": {
       "version": "1.0.0-pre.4",
       "depth": 0,

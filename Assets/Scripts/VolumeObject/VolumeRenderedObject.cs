@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Threading;
 using Unity.Jobs;
 using UnityEngine.Jobs;
@@ -23,7 +23,6 @@ namespace UnityVolumeRendering
         private RenderMode renderMode;
         private TFRenderMode tfRenderMode;
         private bool lightingEnabled;
-        private Thread renderUpdateThread;
 
         private Vector2 visibilityWindow = new Vector2(0.0f, 1.0f);
 
@@ -102,9 +101,7 @@ namespace UnityVolumeRendering
         }
 
         private void UpdateMaaterialProperties()
-        {
-            Debug.Log("Updating material properties.");
-            
+        {            
             bool useGradientTexture = tfRenderMode == TFRenderMode.TF2D || renderMode == RenderMode.IsosurfaceRendering || lightingEnabled;
             
             // This will cause a major lag spike
@@ -115,13 +112,11 @@ namespace UnityVolumeRendering
             
             if(tfRenderMode == TFRenderMode.TF2D)
             {
-                Debug.Log("Detecting a 2D transfer function!");
                 meshRenderer.sharedMaterial.SetTexture("_TFTex", transferFunction2D.GetTexture());
                 meshRenderer.sharedMaterial.EnableKeyword("TF2D_ON");
             }
             else
             {
-                Debug.Log("Detecting a 1D transfer function!");
                 meshRenderer.sharedMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
                 meshRenderer.sharedMaterial.DisableKeyword("TF2D_ON");
             }

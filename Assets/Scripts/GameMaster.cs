@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine.UI;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace UnityVolumeRendering
 {
@@ -15,7 +16,17 @@ namespace UnityVolumeRendering
         public Slider vol_sur_slider;
 
         [SerializeField]
-        public Slider vis_slider;
+        public RangeSlider vis_slider;
+
+        [SerializeField]
+        public Text vis_slider_low_val;
+
+        
+        [SerializeField]
+        public Canvas transferCanvas;
+
+        [SerializeField]
+        public Text vis_slider_hi_val;
 
         [HideInInspector]
         public string DefaultFolder;
@@ -30,7 +41,7 @@ namespace UnityVolumeRendering
         public VolumeDataset dataset;
 
         [HideInInspector]
-        public VolumeRenderedObject renderedObj;
+        public VolumeRenderedObject renderedObj = null;
 
         [HideInInspector]
         public CrossSectionPlane cross_section;
@@ -63,10 +74,23 @@ namespace UnityVolumeRendering
 
 
             vol_sur_slider.onValueChanged.AddListener(delegate {update_object();});
+            vis_slider.OnValueChanged.AddListener(delegate {update_visibility();});
+            
+
+            // Load transfer function GUI
+            
+            if (renderedObj != null)
+            {
+                renderedObj.SetTransferFunctionMode(TFRenderMode.TF1D);
+                transferCanvas.GetComponent<TFGui>().SetupTransferUi();
+            }
+            
         }
+        
 
         private void update_object()
         {
+            Debug.Log("Updating object!");
             int val = Mathf.RoundToInt(vol_sur_slider.value);
             if (val == 0)
             {
@@ -77,12 +101,27 @@ namespace UnityVolumeRendering
                 RenderMode mode = RenderMode.IsosurfaceRendering;
                 renderedObj.SetRenderMode(mode);
             }
+            vis_slider.LowValue = vis_slider.MinValue;
+            vis_slider.HighValue = vis_slider.MaxValue;
+            
+            vis_slider_low_val.text = vis_slider.LowValue.ToString("0.00");
+            vis_slider_hi_val.text = vis_slider.HighValue.ToString("0.00");
         }
 
         private void update_visibility()
         {
-            float val = vis_slider.value;
+            Debug.Log("Updating visibility!");
+            float lowVal = vis_slider.LowValue;
+            float hiVal = vis_slider.HighValue;
+            vis_slider_low_val.text = vis_slider.LowValue.ToString("0.00");
+            vis_slider_hi_val.text = vis_slider.HighValue.ToString("0.00");
             Vector2 visibilityWindow = renderedObj.GetVisibilityWindow();
+            Vector2 values = new Vector2()
+            {
+                x = lowVal,
+                y = hiVal
+            };
+            renderedObj.SetVisibilityWindow(values);
         }
 
         private void loadNew(string folder)
@@ -93,13 +132,11 @@ namespace UnityVolumeRendering
 
             foreach(var obj in objects)
             {
-                Debug.Log("Destroying object!");
                 UnityEngine.Object.Destroy(obj.transform.gameObject);
             }           
 
             foreach(var plane in planes)
             {
-                Debug.Log("Destroying plane!");
                 UnityEngine.Object.Destroy(plane.transform.gameObject);
             }      
         
@@ -124,10 +161,6 @@ namespace UnityVolumeRendering
             VolumeObjectFactory.SpawnCrossSectionPlane(renderedObj);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        
     }
 }
