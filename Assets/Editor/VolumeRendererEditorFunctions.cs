@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace UnityVolumeRendering
 {
+    /*
     public class VolumeRendererEditorFunctions
     {
         [MenuItem("Volume Rendering/Load raw dataset")]
@@ -86,7 +87,7 @@ namespace UnityVolumeRendering
         {
             VolumeRenderedObject[] objects = GameObject.FindObjectsOfType<VolumeRenderedObject>();
             if (objects.Length == 1)
-                VolumeObjectFactory.SpawnCrossSectionPlane(objects[0]);
+                VolumeObjectFactory.SpawnCrossSectionPlane(objects[0], 1f);
             else
             {
                 CrossSectionPlaneEditorWindow wnd = new CrossSectionPlaneEditorWindow();
@@ -102,4 +103,5 @@ namespace UnityVolumeRendering
                 VolumeObjectFactory.SpawnCutoutBox(objects[0]);
         }
     }
+    */
 }

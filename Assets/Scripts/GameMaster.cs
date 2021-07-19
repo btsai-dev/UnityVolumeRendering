@@ -11,7 +11,12 @@ namespace UnityVolumeRendering
 {
     public class GameMaster : MonoBehaviour
     {
-        
+        [SerializeField]
+        public Button saveButton;
+
+        [SerializeField]
+        public Button loadButton;
+
         [SerializeField]
         public Slider vol_sur_slider;
 
@@ -63,18 +68,22 @@ namespace UnityVolumeRendering
                 print ("Android Detected");
             else
             {
-                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "SkullPng");
+                //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "SkullPng");
+                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_rec_png2");
                 Debug.Log("Attempting to load at Default Folder + " + DefaultFolder);
             }
 
             if (Directory.Exists(DefaultFolder))
-                loadNew(DefaultFolder);
+                //loadNew(DefaultFolder, new Vector2Int(512, 512), 234, 1);
+                loadNew(DefaultFolder, new Vector2Int(512, 512), 1000, 1);
             else
                 Debug.Log("Directory not found, not loading anything!");
 
 
             vol_sur_slider.onValueChanged.AddListener(delegate {update_object();});
             vis_slider.OnValueChanged.AddListener(delegate {update_visibility();});
+            saveButton.onClick.AddListener(delegate {save_tf();});
+            loadButton.onClick.AddListener(delegate {load_tf();});
             
 
             // Load transfer function GUI
@@ -84,13 +93,37 @@ namespace UnityVolumeRendering
                 renderedObj.SetTransferFunctionMode(TFRenderMode.TF1D);
                 transferCanvas.GetComponent<TFGui>().SetupTransferUi();
             }
-            
+        }
+
+        private void save_tf()
+        {
+            if (renderedObj == null || renderedObj.transferFunction == null)
+                return;
+            string filepath = Path.Combine(Application.streamingAssetsPath, "default.tf");
+            if(filepath != "")
+                TransferFunctionDatabase.SaveTransferFunction(renderedObj.transferFunction, filepath);
         }
         
 
+        private void load_tf()
+        {
+            if (renderedObj == null || renderedObj.transferFunction == null)
+                return;
+            string filepath = Path.Combine(Application.streamingAssetsPath, "default.tf");
+            if(filepath != "")
+            {
+                TransferFunction newTF = TransferFunctionDatabase.LoadTransferFunction(filepath);
+                if(newTF != null)
+                    renderedObj.transferFunction = newTF;
+                renderedObj.SetTransferFunctionMode(TFRenderMode.TF1D);
+                renderedObj.SetLightingEnabled(true);
+                transferCanvas.GetComponent<TFGui>().SetupTransferUi();
+            }
+            
+        }
+
         private void update_object()
         {
-            Debug.Log("Updating object!");
             int val = Mathf.RoundToInt(vol_sur_slider.value);
             if (val == 0)
             {
@@ -110,7 +143,6 @@ namespace UnityVolumeRendering
 
         private void update_visibility()
         {
-            Debug.Log("Updating visibility!");
             float lowVal = vis_slider.LowValue;
             float hiVal = vis_slider.HighValue;
             vis_slider_low_val.text = vis_slider.LowValue.ToString("0.00");
@@ -124,7 +156,7 @@ namespace UnityVolumeRendering
             renderedObj.SetVisibilityWindow(values);
         }
 
-        private void loadNew(string folder)
+        private void loadNew(string folder, Vector2Int resize, int slices, float multiplier)
         {
             // Destroy existing versions
             VolumeRenderedObject[] objects = GameObject.FindObjectsOfType<VolumeRenderedObject>();
@@ -138,29 +170,27 @@ namespace UnityVolumeRendering
             foreach(var plane in planes)
             {
                 UnityEngine.Object.Destroy(plane.transform.gameObject);
-            }      
+            }
         
             // Display volumetric object
             importer = new ImageSequenceImporter(DefaultFolder);
-            dataset = importer.Import();
+            dataset = importer.Import(resize.x, resize.y, slices);
 
 
-            renderedObj = VolumeObjectFactory.CreateObject(dataset);
+            renderedObj = VolumeObjectFactory.CreateObject(dataset, multiplier);
 
             GameObject g_renderedObj = renderedObj.transform.gameObject;
             Vector3 targetPos = new Vector3()
             {
                 x = disp_top_pos.x,
-                y = disp_top_pos.y + renderedObj.GetComponentInChildren<MeshRenderer>().bounds.extents.y * 2,
+                y = disp_top_pos.y + renderedObj.GetComponentInChildren<MeshRenderer>().bounds.extents.y * 1.5f,
                 z = disp_top_pos.z
             };
 
             g_renderedObj.transform.position = targetPos;
             g_renderedObj.transform.rotation = Quaternion.Euler(-90, 0, 0);
             
-            VolumeObjectFactory.SpawnCrossSectionPlane(renderedObj);
+            VolumeObjectFactory.SpawnCrossSectionPlane(renderedObj, multiplier);
         }
-
-        
     }
 }

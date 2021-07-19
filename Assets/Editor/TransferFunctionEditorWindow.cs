@@ -132,7 +132,6 @@ namespace UnityVolumeRendering
                 tf.colourControlPoints[iCol] = colPoint;
             }
 
-            Debug.Log("Number of control poinsts: " + tf.alphaControlPoints.Count);
             // Alpha control points
             for (int iAlpha = 0; iAlpha < tf.alphaControlPoints.Count; iAlpha++)
             {

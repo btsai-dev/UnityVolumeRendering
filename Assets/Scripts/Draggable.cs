@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace UnityVolumeRendering
 {
-    public class Draggable : Selectable, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class Draggable : Selectable, IDragHandler, IBeginDragHandler, IEndDragHandler, IInitializePotentialDragHandler
     {
         private RectTransform dragRectTransform;
         private Canvas canvas;
@@ -34,8 +34,14 @@ namespace UnityVolumeRendering
             canvasScaleFactor = canvas.scaleFactor;
         }
 
+        public void OnInitializePotentialDrag(PointerEventData ped)
+        {
+            ped.useDragThreshold = false;
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
+            Debug.Log("BEGIN DRAG!");
             if (dragOnSurfaces)
                 draggingPlane = transform as RectTransform;
             else
@@ -45,15 +51,16 @@ namespace UnityVolumeRendering
         }
         public void OnDrag(PointerEventData eventData)
         {
+            Debug.Log("Dragging!");
             if (dragRectTransform != null)
             {
                 SetDraggedPosition(eventData);
-                var anchorPos = dragRectTransform.anchoredPosition;
-                alphaPoint.dataValue = Mathf.Clamp(anchorPos.x / canvasW, 0.0f, 1.0f);
-                alphaPoint.alphaValue = Mathf.Clamp(anchorPos.y / canvasH, 0.0f, 1.0f);
-                TransferFunction tf = renderedObj.transferFunction;
-                tf.alphaControlPoints[alphaControlIndex] = alphaPoint;
-                canvas.GetComponent<TFGui>().UpdateTransfer();
+                //var anchorPos = dragRectTransform.anchoredPosition;
+                //alphaPoint.dataValue = Mathf.Clamp(anchorPos.x / canvasW, 0.0f, 1.0f);
+                //alphaPoint.alphaValue = Mathf.Clamp(anchorPos.y / canvasH, 0.0f, 1.0f);
+                //TransferFunction tf = renderedObj.transferFunction;
+                //tf.alphaControlPoints[alphaControlIndex] = alphaPoint;
+                // canvas.GetComponent<TFGui>().UpdateTransfer();
             }
         }
 
@@ -72,6 +79,7 @@ namespace UnityVolumeRendering
 
         private void SetDraggedPosition(PointerEventData data)
         {
+            Debug.Log("Drag positioning!");
             if (dragOnSurfaces && data.pointerEnter != null && data.pointerEnter.transform as RectTransform != null)
                 draggingPlane = data.pointerEnter.transform as RectTransform;
     
@@ -79,6 +87,7 @@ namespace UnityVolumeRendering
             Vector3 globalMousePos;
             if (RectTransformUtility.ScreenPointToWorldPointInRectangle(draggingPlane, data.position, data.pressEventCamera, out globalMousePos))
             {
+                Debug.Log("Changing positioning!");
                 dragRectTransform.position = globalMousePos;
                 dragRectTransform.rotation = draggingPlane.rotation;
             }

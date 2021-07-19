@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UnityVolumeRendering
 {
     /// <summary>
-    /// Utility class for generating histograms fo rthe dataset.
+    /// Utility class for generating histograms for the dataset.
     /// </summary>
     public class HistogramTextureGenerator
     {

@@ -3,6 +3,7 @@ using UnityEditor;
 
 namespace UnityVolumeRendering
 {
+    /*
     public class CrossSectionPlaneEditorWindow : EditorWindow
     {
         private void OnGUI()
@@ -22,4 +23,5 @@ namespace UnityVolumeRendering
             }
         }
     }
+    */
 }

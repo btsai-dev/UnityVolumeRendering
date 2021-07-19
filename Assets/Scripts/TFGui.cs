@@ -25,7 +25,6 @@ namespace UnityVolumeRendering
         private Image backgroundImg;
         public void SetupTransferUi()
         {
-            
             tfGUIMat = Resources.Load<Material>("TransferFunctionGUIMat");
             tfPaletteGUIMat = Resources.Load<Material>("TransferFunctionPaletteGUIMat");
             backgroundImg = histCanvas.GetComponent<Image>();
@@ -60,7 +59,9 @@ namespace UnityVolumeRendering
                 Debug.Log("Purging!");
                 Destroy(obj.gameObject);
             }
-            
+        
+            Debug.Log("CONTROL POINTS: " + tf.alphaControlPoints.ToString());
+            // Loop through opacity control points
             for (int iAlpha = 0; iAlpha < tf.alphaControlPoints.Count; iAlpha++)
             {
                 TFAlphaControlPoint alphaPoint = tf.alphaControlPoints[iAlpha];
@@ -86,6 +87,15 @@ namespace UnityVolumeRendering
 
                 rect.localPosition = new Vector3(rect.localPosition.x, rect.localPosition.y, 0);
             }
+
+            // Colour control points
+            //for (int iCol = 0; iCol < tf.colourControlPoints.Count; iCol++)
+            //{
+            //    TFColourControlPoint colPoint = tf.colourControlPoints[iCol];
+            //    tf.colourControlPoints[iCol] = colPoint;
+            //}
+
+            
         }
 
     public void UpdateTransfer()

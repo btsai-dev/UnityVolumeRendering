@@ -6,7 +6,7 @@ namespace UnityVolumeRendering
 {
     public class VolumeObjectFactory
     {
-        public static VolumeRenderedObject CreateObject(VolumeDataset dataset)
+        public static VolumeRenderedObject CreateObject(VolumeDataset dataset, float multiplier=1f)
         {
             GameObject outerObject = new GameObject("VolumeRenderedObject_" + dataset.datasetName);
             VolumeRenderedObject volObj = outerObject.AddComponent<VolumeRenderedObject>();
@@ -47,20 +47,29 @@ namespace UnityVolumeRendering
             if(dataset.scaleX != 0.0f && dataset.scaleY != 0.0f && dataset.scaleZ != 0.0f)
             {
                 float maxScale = Mathf.Max(dataset.scaleX, dataset.scaleY, dataset.scaleZ);
-                volObj.transform.localScale = new Vector3(dataset.scaleX / maxScale, dataset.scaleY / maxScale, dataset.scaleZ / maxScale);
+                volObj.transform.localScale = new Vector3(
+                    multiplier * dataset.scaleX / maxScale, 
+                    multiplier * dataset.scaleY / maxScale, 
+                    multiplier * dataset.scaleZ / maxScale
+                );
             }
             
 
             return volObj;
         }
 
-        public static void SpawnCrossSectionPlane(VolumeRenderedObject volobj)
+        public static void SpawnCrossSectionPlane(VolumeRenderedObject volobj, float multiplier)
         {
             GameObject quad = GameObject.Instantiate((GameObject)Resources.Load("CrossSectionPlane"));
             quad.transform.rotation = Quaternion.Euler(270.0f, 0.0f, 0.0f);
             CrossSectionPlane csplane = quad.gameObject.GetComponent<CrossSectionPlane>();
             csplane.targetObject = volobj;
             quad.transform.position = volobj.transform.position;
+            quad.transform.localScale = new Vector3(
+                quad.transform.localScale.x * multiplier,
+                quad.transform.localScale.y,
+                quad.transform.localScale.z * multiplier
+            );
             
 
 #if UNITY_EDITOR
