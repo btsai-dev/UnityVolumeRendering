@@ -69,13 +69,15 @@ namespace UnityVolumeRendering
             else
             {
                 //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "SkullPng");
-                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_rec_png2");
+                //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_rec_png2");
+                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_complete");
                 Debug.Log("Attempting to load at Default Folder + " + DefaultFolder);
             }
 
             if (Directory.Exists(DefaultFolder))
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 234, 1);
-                loadNew(DefaultFolder, new Vector2Int(512, 512), 1000, 1);
+                //loadNew(DefaultFolder, new Vector2Int(512, 512), 300, 1);
+                loadNew(DefaultFolder, new Vector2Int(640, 640), 500, 1);
             else
                 Debug.Log("Directory not found, not loading anything!");
 

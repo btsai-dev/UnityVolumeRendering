@@ -35,8 +35,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-Assets/3rdparty/
-
 Logs/
 
 Assets/StreamingAssets/
