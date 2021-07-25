@@ -28,6 +28,8 @@ namespace UnityVolumeRendering
 
         public override VolumeDataset Import()
         {
+            throw new NullReferenceException("Incomplete function.");
+            /*
             if (!Directory.Exists(directoryPath))
                 throw new NullReferenceException("No directory found: " + directoryPath);
 
@@ -57,9 +59,10 @@ namespace UnityVolumeRendering
 
             Debug.Log("Done importing.");
             return dataset;
+            */
         }
 
-        public VolumeDataset Import(int resizeX, int resizeY, int slices)
+        public VolumeDataset Import(int resizeX, int resizeY, Vector2Int slice_range)
         {
 
             if (!Directory.Exists(directoryPath))
@@ -78,7 +81,7 @@ namespace UnityVolumeRendering
             {
                 x = resizeX,
                 y = resizeY,
-                z = slices
+                z = slice_range.y - slice_range.x
             };
 
             
@@ -94,7 +97,7 @@ namespace UnityVolumeRendering
             if (!AssertIdenticalDimension(imagePaths, flat_dimensions))
                 throw new IndexOutOfRangeException("Image sequence has non-uniform dimensions");
 
-            int[] data = FillSequentialData(resize_dimensions, imagePaths);
+            int[] data = FillSequentialData(resize_dimensions, imagePaths, slice_range);
             
             VolumeDataset dataset = FillVolumeDataset(data, volume_dimensions, resize_dimensions);
 
@@ -188,17 +191,14 @@ namespace UnityVolumeRendering
         /// <param name="dimensions">The XYZ dimensions of the volume.</param>
         /// <param name="paths">The set of image paths comprising the volume.</param>
         /// <returns>The set of sequential values for the volume.</returns>
-        private int[] FillSequentialData(Vector3Int resize_dimensions, List<string> paths)
+        private int[] FillSequentialData(Vector3Int resize_dimensions, List<string> paths, Vector2Int slice_range)
         {            
             var data = new List<int>(resize_dimensions.x * resize_dimensions.y * resize_dimensions.z);
             Debug.Log("Size of data list (START)" + data.Capacity);
 
-            int index = 0;
-        
-            foreach (var path in paths)
+            for (int path_index = slice_range.x; path_index < slice_range.y; path_index++)
             {
-                if (index >= resize_dimensions.z)
-                    break;
+                String path = paths[path_index];
                 var texture = new Texture2D(1, 1);
                 //texture.hideFlags = HideFlags.HideAndDontSave;  // Fix memory leak
                 byte[] bytes = File.ReadAllBytes(path);
@@ -209,7 +209,6 @@ namespace UnityVolumeRendering
                 int[] imageData = DensityHelper.ConvertColorsToDensities(pixels);
                 data.AddRange(imageData);
                 UnityEngine.Object.DestroyImmediate(texture);            // Fix memory leak
-                index ++;
             }
 
             return data.ToArray();
@@ -235,7 +234,7 @@ namespace UnityVolumeRendering
                 dimZ = resize_dimensions.z,
                 scaleX = 1f, // Scale arbitrarily normalised around the x-axis 
                 scaleY = (float)true_dimensions.y / (float)true_dimensions.x,
-                scaleZ = (float)true_dimensions.z / (float)true_dimensions.x
+                scaleZ = (float)resize_dimensions.z / (float)true_dimensions.x
             };
 
             return dataset;

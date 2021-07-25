@@ -75,7 +75,10 @@ namespace UnityVolumeRendering
             int minValue = GetMinDataValue();
             int maxValue = GetMaxDataValue();
             int maxRange = maxValue - minValue;
-
+            Debug.Log("Current memory usage: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
+            System.GC.Collect();
+            Debug.Log("Current memory usage after collection: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
+            Debug.Log("More required: " + String.Format("{0:n0}", data.Length));
             Color[] cols = new Color[data.Length];
             for (int x = 0; x < dimX; x++)
             {

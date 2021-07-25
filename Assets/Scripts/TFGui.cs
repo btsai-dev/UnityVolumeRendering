@@ -37,13 +37,13 @@ namespace UnityVolumeRendering
             TransferFunction tf = renderedObj.transferFunction;
             tf.GenerateTexture();
 
-            if(histTex == null)
-            {
+           // if(histTex == null)
+            //{
                 if(SystemInfo.supportsComputeShaders)
                     histTex = HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset);
                 else
                     histTex = HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset);
-            }
+            //}
 
             tfGUIMat.SetTexture("_TFTex", tf.GetTexture());
             tfGUIMat.SetTexture("_HistTex", histTex);

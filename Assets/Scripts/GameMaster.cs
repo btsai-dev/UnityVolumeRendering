@@ -70,14 +70,18 @@ namespace UnityVolumeRendering
             {
                 //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "SkullPng");
                 //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_rec_png2");
-                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_complete");
+                //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_complete");
+                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_max");
                 Debug.Log("Attempting to load at Default Folder + " + DefaultFolder);
             }
 
             if (Directory.Exists(DefaultFolder))
+            {
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 234, 1);
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 300, 1);
-                loadNew(DefaultFolder, new Vector2Int(640, 640), 500, 1);
+                Vector2Int slice_range = new Vector2Int(0, 1000);
+                loadNew(DefaultFolder, new Vector2Int(512, 512), slice_range, 1);
+            }
             else
                 Debug.Log("Directory not found, not loading anything!");
 
@@ -158,7 +162,7 @@ namespace UnityVolumeRendering
             renderedObj.SetVisibilityWindow(values);
         }
 
-        private void loadNew(string folder, Vector2Int resize, int slices, float multiplier)
+        private void loadNew(string folder, Vector2Int resize, Vector2Int slice_range, float multiplier)
         {
             // Destroy existing versions
             VolumeRenderedObject[] objects = GameObject.FindObjectsOfType<VolumeRenderedObject>();
@@ -176,7 +180,7 @@ namespace UnityVolumeRendering
         
             // Display volumetric object
             importer = new ImageSequenceImporter(DefaultFolder);
-            dataset = importer.Import(resize.x, resize.y, slices);
+            dataset = importer.Import(resize.x, resize.y, slice_range);
 
 
             renderedObj = VolumeObjectFactory.CreateObject(dataset, multiplier);

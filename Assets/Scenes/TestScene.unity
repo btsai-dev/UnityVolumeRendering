@@ -4205,6 +4205,16 @@ PrefabInstance:
       propertyPath: m_EnableTurnAround
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8840403594524881463, guid: 83b5294850c3e9d409570295a1597f31,
+        type: 3}
+      propertyPath: field of view
+      value: 26.991467
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840403594524881463, guid: 83b5294850c3e9d409570295a1597f31,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8840403595324129240, guid: 83b5294850c3e9d409570295a1597f31,
         type: 3}
       propertyPath: m_Parameters.widthMultiplier

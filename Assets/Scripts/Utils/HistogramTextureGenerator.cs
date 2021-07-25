@@ -93,6 +93,7 @@ namespace UnityVolumeRendering
             {
                 histogramCols[iSample] = new Color(Mathf.Log10((float)histogramData[iSample]) / Mathf.Log10((float)maxValue), 0.0f, 0.0f, 1.0f);
             }
+            
 
             texture.SetPixels32(histogramCols);
             texture.Apply();

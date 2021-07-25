@@ -48,9 +48,9 @@ namespace UnityVolumeRendering
             {
                 float maxScale = Mathf.Max(dataset.scaleX, dataset.scaleY, dataset.scaleZ);
                 volObj.transform.localScale = new Vector3(
-                    multiplier * dataset.scaleX / maxScale, 
-                    multiplier * dataset.scaleY / maxScale, 
-                    multiplier * dataset.scaleZ / maxScale
+                    dataset.scaleX / maxScale, 
+                    dataset.scaleY / maxScale, 
+                    dataset.scaleZ / maxScale
                 );
             }
             
