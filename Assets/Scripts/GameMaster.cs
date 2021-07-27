@@ -71,7 +71,8 @@ namespace UnityVolumeRendering
                 //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "SkullPng");
                 //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_rec_png2");
                 //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_complete");
-                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_max");
+                //DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_max");
+                DefaultFolder = Path.Combine(Application.streamingAssetsPath, "tomo_00056_contrast");
                 Debug.Log("Attempting to load at Default Folder + " + DefaultFolder);
             }
 
