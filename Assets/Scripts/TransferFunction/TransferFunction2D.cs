@@ -82,7 +82,7 @@ namespace UnityVolumeRendering
 
         void onDestroy()
         {
-            Debug.Log("Destroying TransferFunction.cs!")
+            Debug.Log("Destroying TransferFunction2D.cs!");
             Texture2D.DestroyImmediate(texture);
         }
     }

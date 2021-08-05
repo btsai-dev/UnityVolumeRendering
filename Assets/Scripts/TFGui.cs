@@ -41,10 +41,21 @@ namespace UnityVolumeRendering
                 Texture2D.DestroyImmediate(histTex);
 
 
+            int maxValue = renderedObj.dataset.GetMaxDataValue();
+            int minValue = renderedObj.dataset.GetMinDataValue();
+            int numValues = maxValue - minValue + 1;    
             if(SystemInfo.supportsComputeShaders)
-                histTex = HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset);
+            {
+                int sampleCount = System.Math.Min(numValues, 256);                                  
+                histTex = new Texture2D(sampleCount, 1, TextureFormat.RGBA32, false);
+                HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset, histTex, sampleCount);
+            }
             else
-                histTex = HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset);
+            {
+                int numSamples = System.Math.Min(numValues, 1024);                                 
+                histTex = new Texture2D(numSamples, 1, TextureFormat.RGBAFloat, false);
+                HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset, histTex, numSamples);
+            }
 
             tfGUIMat.SetTexture("_TFTex", tf.GetTexture());
             tfGUIMat.SetTexture("_HistTex", histTex);
@@ -107,9 +118,17 @@ namespace UnityVolumeRendering
             if(histTex == null)
             {
                 if(SystemInfo.supportsComputeShaders)
-                    histTex = HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset);
+                {
+                    int sampleCount = System.Math.Min(numValues, 256);                                  
+                    histTex = new Texture2D(sampleCount, 1, TextureFormat.RGBA32, false);
+                    HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset, histTex, sampleCount);
+                }
                 else
-                    histTex = HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset);
+                {
+                    int numSamples = System.Math.Min(numValues, 1024);                                 
+                    histTex = new Texture2D(numSamples, 1, TextureFormat.RGBAFloat, false);
+                    HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset, histTex, numSamples);
+                }
             }
 
             tfGUIMat.SetTexture("_TFTex", tf.GetTexture());
@@ -120,7 +139,9 @@ namespace UnityVolumeRendering
         void onDestroy()
         {
             Debug.Log("Destroying TFGui.cs!");
-            Texture2D.DestroyImmediate(histTex);
+            Texture2D.Destroy(histTex);
+            Material.Destroy(tfGUIMat);
+            Material.Destroy(tfPaletteGUIMat);
         }
     }
 }

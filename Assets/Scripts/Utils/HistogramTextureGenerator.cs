@@ -15,19 +15,15 @@ namespace UnityVolumeRendering
         /// </summary>
         /// <param name="dataset"></param>
         /// <returns></returns>
-        public static Texture2D GenerateHistogramTexture(VolumeDataset dataset)
+        public static void GenerateHistogramTexture(VolumeDataset dataset, Texture2D histTex, int numSamples)
         {
-            int minValue = dataset.GetMinDataValue();
             int maxValue = dataset.GetMaxDataValue();
-            int numValues = maxValue - minValue + 1;
-
+            int minValue = dataset.GetMinDataValue();
+            int numValues = maxValue - minValue + 1; 
             float valRangeRecip = 1.0f / (maxValue - minValue);
-
-            int numSamples = System.Math.Min(numValues, 1024);
             int[] values = new int[numSamples];
             Color[] cols = new Color[numSamples];
-            Texture2D texture = new Texture2D(numSamples, 1, TextureFormat.RGBAFloat, false);
-
+            
             int maxFreq = 0;
             for (int iData = 0; iData < dataset.data.Length; iData++)
             {
@@ -41,11 +37,9 @@ namespace UnityVolumeRendering
             for (int iSample = 0; iSample < numSamples; iSample++)
                 cols[iSample] = new Color(Mathf.Log10((float)values[iSample]) / Mathf.Log10((float)maxFreq), 0.0f, 0.0f, 1.0f);
 
-            texture.SetPixels(cols);
+            histTex.SetPixels(cols);
             //texture.filterMode = FilterMode.Point;
-            texture.Apply();
-
-            return texture;
+            histTex.Apply();
         }
 
 
@@ -56,11 +50,11 @@ namespace UnityVolumeRendering
         /// </summary>
         /// <param name="dataset"></param>
         /// <returns></returns>
-        public static Texture2D GenerateHistogramTextureOnGPU(VolumeDataset dataset)
+        public static void GenerateHistogramTextureOnGPU(VolumeDataset dataset, Texture2D histTex, int sampleCount)
         {
-            int numValues = dataset.GetMaxDataValue() - dataset.GetMinDataValue() + 1;
-            int sampleCount = System.Math.Min(numValues, 256);
-
+            Debug.Log("Using compute shaders.");
+            int numValues = dataset.GetMaxDataValue() - dataset.GetMinDataValue() + 1; 
+            
             ComputeShader computeHistogram = Resources.Load("ComputeHistogram") as ComputeShader;
             int handleInitialize = computeHistogram.FindKernel("HistogramInitialize");
             int handleMain = computeHistogram.FindKernel("HistogramMain");
@@ -88,17 +82,15 @@ namespace UnityVolumeRendering
 
             int maxValue = (int)histogramData.Max();
             
-            Texture2D texture = new Texture2D(sampleCount, 1, TextureFormat.RGBA32, false);
+            
             for (int iSample = 0; iSample < sampleCount; iSample++)
             {
                 histogramCols[iSample] = new Color(Mathf.Log10((float)histogramData[iSample]) / Mathf.Log10((float)maxValue), 0.0f, 0.0f, 1.0f);
             }
-            
+            Texture3D.DestroyImmediate(dataTexture);    // Purge the probably massive texture3d object
 
-            texture.SetPixels32(histogramCols);
-            texture.Apply();
-
-            return texture;
+            histTex.SetPixels32(histogramCols);
+            histTex.Apply();
         }
 
         /// <summary>
