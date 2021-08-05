@@ -79,6 +79,12 @@ namespace UnityVolumeRendering
             texture.SetPixels(cols);
             texture.Apply();
         }
+
+        void onDestroy()
+        {
+            Debug.Log("Destroying TransferFunction.cs!")
+            Texture2D.DestroyImmediate(texture);
+        }
     }
 
 }

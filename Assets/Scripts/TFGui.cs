@@ -37,13 +37,14 @@ namespace UnityVolumeRendering
             TransferFunction tf = renderedObj.transferFunction;
             tf.GenerateTexture();
 
-           // if(histTex == null)
-            //{
-                if(SystemInfo.supportsComputeShaders)
-                    histTex = HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset);
-                else
-                    histTex = HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset);
-            //}
+            if(histTex != null)
+                Texture2D.DestroyImmediate(histTex);
+
+
+            if(SystemInfo.supportsComputeShaders)
+                histTex = HistogramTextureGenerator.GenerateHistogramTextureOnGPU(renderedObj.dataset);
+            else
+                histTex = HistogramTextureGenerator.GenerateHistogramTexture(renderedObj.dataset);
 
             tfGUIMat.SetTexture("_TFTex", tf.GetTexture());
             tfGUIMat.SetTexture("_HistTex", histTex);
@@ -98,7 +99,7 @@ namespace UnityVolumeRendering
             
         }
 
-    public void UpdateTransfer()
+        public void UpdateTransfer()
         {
             TransferFunction tf = renderedObj.transferFunction;
             tf.GenerateTexture();
@@ -114,6 +115,12 @@ namespace UnityVolumeRendering
             tfGUIMat.SetTexture("_TFTex", tf.GetTexture());
             tfGUIMat.SetTexture("_HistTex", histTex);
             backgroundImg.material = tfGUIMat;
+        }
+
+        void onDestroy()
+        {
+            Debug.Log("Destroying TFGui.cs!");
+            Texture2D.DestroyImmediate(histTex);
         }
     }
 }

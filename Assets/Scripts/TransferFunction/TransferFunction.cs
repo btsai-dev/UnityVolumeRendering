@@ -101,5 +101,11 @@ namespace UnityVolumeRendering
             texture = new Texture2D(TEXTURE_WIDTH, TEXTURE_HEIGHT, texformat, false);
             tfCols = new Color[TEXTURE_WIDTH * TEXTURE_HEIGHT];
         }
+
+        void onDestroy()
+        {
+            Debug.Log("Destroying TransferFunction.cs!")
+            Texture2D.DestroyImmediate(texture);
+        }
     }
 }

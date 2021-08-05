@@ -155,7 +155,7 @@ namespace UnityVolumeRendering
             byte[] bytes = File.ReadAllBytes(path);
 
             Texture2D texture = new Texture2D(1, 1);
-            //texture.hideFlags = HideFlags.HideAndDontSave;  // Fix memory leak
+            texture.hideFlags = HideFlags.HideAndDontSave;
             texture.LoadImage(bytes);
 
             Vector2Int dimensions = new Vector2Int()
@@ -164,7 +164,7 @@ namespace UnityVolumeRendering
                 y = texture.height
             };
             
-            UnityEngine.Object.DestroyImmediate(texture);            // Fix memory leak
+            Texture2D.DestroyImmediate(texture);            // Fix memory leak
             return dimensions;
         }
 
@@ -199,8 +199,8 @@ namespace UnityVolumeRendering
             for (int path_index = slice_range.x; path_index < slice_range.y; path_index++)
             {
                 String path = paths[path_index];
-                var texture = new Texture2D(1, 1);
-                //texture.hideFlags = HideFlags.HideAndDontSave;  // Fix memory leak
+                Texture2D texture = new Texture2D(1, 1);
+                texture.hideFlags = HideFlags.HideAndDontSave;
                 byte[] bytes = File.ReadAllBytes(path);
                 texture.LoadImage(bytes);
                 TextureScale.Bilinear(texture, resize_dimensions.x, resize_dimensions.y);
@@ -208,7 +208,7 @@ namespace UnityVolumeRendering
                 Color[] pixels = texture.GetPixels(); // Order priority: X -> Y -> Z
                 int[] imageData = DensityHelper.ConvertColorsToDensities(pixels);
                 data.AddRange(imageData);
-                UnityEngine.Object.DestroyImmediate(texture);            // Fix memory leak
+                Texture2D.DestroyImmediate(texture);            // Fix memory leak
             }
 
             return data.ToArray();
