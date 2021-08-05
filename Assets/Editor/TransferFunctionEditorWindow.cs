@@ -83,10 +83,21 @@ namespace UnityVolumeRendering
 
             if(histTex == null)
             {
+                int maxValue = volRendObject.dataset.GetMaxDataValue();
+                int minValue = volRendObject.dataset.GetMinDataValue();
+                int numValues = maxValue - minValue + 1;   
                 if(SystemInfo.supportsComputeShaders)
-                    histTex = HistogramTextureGenerator.GenerateHistogramTextureOnGPU(volRendObject.dataset);
+                {
+                    int sampleCount = System.Math.Min(numValues, 256);                                  
+                    histTex = new Texture2D(sampleCount, 1, TextureFormat.RGBA32, false);
+                    HistogramTextureGenerator.GenerateHistogramTextureOnGPU(volRendObject.dataset, histTex, sampleCount);
+                }
                 else
-                    histTex = HistogramTextureGenerator.GenerateHistogramTexture(volRendObject.dataset);
+                {
+                    int numSamples = System.Math.Min(numValues, 1024);                                 
+                    histTex = new Texture2D(numSamples, 1, TextureFormat.RGBAFloat, false);
+                    HistogramTextureGenerator.GenerateHistogramTexture(volRendObject.dataset, histTex, numSamples);
+                }
             }
 
             tfGUIMat.SetTexture("_TFTex", tf.GetTexture());

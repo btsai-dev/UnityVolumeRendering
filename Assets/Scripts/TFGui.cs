@@ -117,6 +117,9 @@ namespace UnityVolumeRendering
 
             if(histTex == null)
             {
+                int maxValue = renderedObj.dataset.GetMaxDataValue();
+                int minValue = renderedObj.dataset.GetMinDataValue();
+                int numValues = maxValue - minValue + 1;   
                 if(SystemInfo.supportsComputeShaders)
                 {
                     int sampleCount = System.Math.Min(numValues, 256);                                  

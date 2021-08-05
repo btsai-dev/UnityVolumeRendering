@@ -25,7 +25,7 @@ namespace UnityVolumeRendering
         {
             if (dataTexture == null)
             {
-                dataTexture = CreateTextureInternal();
+                CreateTextureInternal();
             }
             return dataTexture;
         }
@@ -66,11 +66,11 @@ namespace UnityVolumeRendering
             }
         }
 
-        private Texture3D CreateTextureInternal()
+        private void CreateTextureInternal()
         {
             TextureFormat texformat = SystemInfo.SupportsTextureFormat(TextureFormat.RHalf) ? TextureFormat.RHalf : TextureFormat.RFloat;
-            Texture3D texture = new Texture3D(dimX, dimY, dimZ, texformat, false);
-            texture.wrapMode = TextureWrapMode.Clamp;
+            dataTexture = new Texture3D(dimX, dimY, dimZ, texformat, false);
+            dataTexture.wrapMode = TextureWrapMode.Clamp;
 
             int minValue = GetMinDataValue();
             int maxValue = GetMaxDataValue();
@@ -91,16 +91,15 @@ namespace UnityVolumeRendering
                     }
                 }
             }
-            texture.SetPixels(cols);
-            texture.Apply();
-            return texture;
+            dataTexture.SetPixels(cols);
+            dataTexture.Apply();
         }
 
-        private Texture3D CreateGradientTextureInternal()
+        private void CreateGradientTextureInternal()
         {
             TextureFormat texformat = SystemInfo.SupportsTextureFormat(TextureFormat.RGBAHalf) ? TextureFormat.RGBAHalf : TextureFormat.RGBAFloat;
-            Texture3D texture = new Texture3D(dimX, dimY, dimZ, texformat, false);
-            texture.wrapMode = TextureWrapMode.Clamp;
+            gradientTexture = new Texture3D(dimX, dimY, dimZ, texformat, false);
+            gradientTexture.wrapMode = TextureWrapMode.Clamp;
 
             // Mathematics = something that can be sped up!
 
@@ -130,9 +129,15 @@ namespace UnityVolumeRendering
                     }
                 }
             }
-            texture.SetPixels(cols);
-            texture.Apply();
+            gradientTexture.SetPixels(cols);
+            gradientTexture.Apply();
             return texture;
+        }
+
+        void onDestroy()
+        {
+            Texture3D.DestroyImmediate(dataTexture);
+            Texture3D.DestroyImmediate(gradientTexture);
         }
 
     }

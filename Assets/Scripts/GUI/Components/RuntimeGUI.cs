@@ -22,10 +22,6 @@ namespace UnityVolumeRendering
             {
                 RuntimeFileBrowser.ShowOpenFileDialog(OnOpenRAWDatasetResult, "DataFiles");
             }
-            if (GUILayout.Button("Import DICOM dataset"))
-            {
-                RuntimeFileBrowser.ShowOpenDirectoryDialog(OnOpenDICOMDatasetResult);
-            }
 
             // Show button for opening the dataset editor (for changing the visualisation)
             if (GameObject.FindObjectOfType<VolumeRenderedObject>() != null && GUILayout.Button("Edit imported dataset"))
@@ -66,30 +62,6 @@ namespace UnityVolumeRendering
                     {
                         VolumeObjectFactory.CreateObject(dataset);
                     }
-                }
-            }
-        }
-
-        private void OnOpenDICOMDatasetResult(RuntimeFileBrowser.DialogResult result)
-        {
-            if (!result.cancelled)
-            {
-                // We'll only allow one dataset at a time in the runtime GUI (for simplicity)
-                DespawnAllDatasets();
-
-                bool recursive = true;
-
-                // Read all files
-                IEnumerable<string> fileCandidates = Directory.EnumerateFiles(result.path, "*.*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
-                    .Where(p => p.EndsWith(".dcm", StringComparison.InvariantCultureIgnoreCase) || p.EndsWith(".dicom", StringComparison.InvariantCultureIgnoreCase) || p.EndsWith(".dicm", StringComparison.InvariantCultureIgnoreCase));
-
-                // Import the dataset
-                DICOMImporter importer = new DICOMImporter(fileCandidates, Path.GetFileName(result.path));
-                VolumeDataset dataset = importer.Import();
-                // Spawn the object
-                if (dataset != null)
-                {
-                    VolumeObjectFactory.CreateObject(dataset);
                 }
             }
         }
