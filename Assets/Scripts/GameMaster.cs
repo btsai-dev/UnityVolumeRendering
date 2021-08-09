@@ -80,8 +80,8 @@ namespace UnityVolumeRendering
             {
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 234, 1);
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 300, 1);
-                Vector2Int slice_range = new Vector2Int(0, 1000);
-                loadNew(DefaultFolder, new Vector2Int(512, 512), slice_range, 1);
+                Vector2Int slice_range = new Vector2Int(0, 100);
+                loadNew(DefaultFolder, new Vector2Int(256, 256), slice_range, 1);
             }
             else
                 Debug.Log("Directory not found, not loading anything!");

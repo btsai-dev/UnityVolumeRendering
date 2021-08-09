@@ -34,7 +34,9 @@ namespace UnityVolumeRendering
         {
             if (gradientTexture == null)
             {
-                gradientTexture = CreateGradientTextureInternal();
+                TextureFormat texformat = SystemInfo.SupportsTextureFormat(TextureFormat.RGBAHalf) ? TextureFormat.RGBAHalf : TextureFormat.RGBAFloat;
+                gradientTexture = new Texture3D(dimX, dimY, dimZ, texformat, false);
+                CreateGradientTextureInternal(gradientTexture);
             }
             return gradientTexture;
         }
@@ -95,7 +97,7 @@ namespace UnityVolumeRendering
             dataTexture.Apply();
         }
 
-        private void CreateGradientTextureInternal()
+        private void CreateGradientTextureInternal(Texture3D gradientTexture)
         {
             TextureFormat texformat = SystemInfo.SupportsTextureFormat(TextureFormat.RGBAHalf) ? TextureFormat.RGBAHalf : TextureFormat.RGBAFloat;
             gradientTexture = new Texture3D(dimX, dimY, dimZ, texformat, false);
@@ -131,7 +133,6 @@ namespace UnityVolumeRendering
             }
             gradientTexture.SetPixels(cols);
             gradientTexture.Apply();
-            return texture;
         }
 
         void onDestroy()
