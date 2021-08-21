@@ -21,6 +21,8 @@ namespace UnityVolumeRendering
         private Texture3D dataTexture = null;
         private Texture3D gradientTexture = null;
 
+        public InternalTextureJob internalJob;
+
         public Texture3D GetDataTexture()
         {
             if (dataTexture == null)
@@ -79,18 +81,24 @@ namespace UnityVolumeRendering
             System.GC.Collect();
             Debug.Log("Current memory usage after collection: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
             Debug.Log("More required: " + String.Format("{0:n0}", data.Length));
+
             Color[] cols = new Color[data.Length];
-            for (int x = 0; x < dimX; x++)
+            for(int i = 0; i < dimX * dimY * dimZ; i++)
             {
-                for (int y = 0; y < dimY; y++)
-                {
-                    for (int z = 0; z < dimZ; z++)
-                    {
-                        int iData = x + y * dimX + z * (dimX * dimY);
-                        cols[iData] = new Color((float)(data[iData] - minValue) / maxRange, 0.0f, 0.0f, 0.0f);
-                    }
-                }
+                cols[i] = new Color((float)(data[i] - minValue) / maxRange, 0.0f, 0.0f, 0.0f);
             }
+            
+//            for (int x = 0; x < dimX; x++)
+//            {
+//                for (int y = 0; y < dimY; y++)
+//                {
+//                    for (int z = 0; z < dimZ; z++)
+//                    {
+//                        int iData = x + y * dimX + z * (dimX * dimY);
+//                        cols[iData] = new Color((float)(data[iData] - minValue) / maxRange, 0.0f, 0.0f, 0.0f);
+//                    }
+//                }
+//            }
             texture.SetPixels(cols);
             texture.Apply();
             return texture;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace UnityVolumeRendering
 {
@@ -14,7 +15,6 @@ namespace UnityVolumeRendering
             Texture2D noiseTexture = NoiseTextureGenerator.GenerateNoiseTexture(noiseDimX, noiseDimY);
             material.SetTexture("_NoiseTex", noiseTexture);
             material.SetTexture("_DataTex", dataset.GetDataTexture());
-
             return material;
         }
     }
