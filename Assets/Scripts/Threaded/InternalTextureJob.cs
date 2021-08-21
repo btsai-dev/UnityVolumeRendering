@@ -18,16 +18,16 @@ namespace UnityVolumeRendering
         // Delta time must be copied to the job since jobs generally don't have concept of a frame.
         // The main thread waits for the job same frame or next frame, but the job should do work deterministically
         // independent on when the job happens to run on the worker threads.
-        public float deltaTime;
+        public int minValue;
+        public int maxRange;
 
         // The code actually running on the job
         public void Execute(int i)
         {
-            //ColorData[i] = 
-            // Move the positions based on delta time and velocity
-            // position[i] = position[i] + velocity[i] * deltaTime;
+            ColorData[i] = new Color((float)(DatasetData[i] - minValue) / maxRange, 0.0f, 0.0f, 0.0f);
         }
     }
+/*
     public class InternalTextureJob : ThreadedJob
     {
         public int[] InData;  // arbitary job data
@@ -60,4 +60,5 @@ namespace UnityVolumeRendering
             //}
         }
     }
+    */
 }

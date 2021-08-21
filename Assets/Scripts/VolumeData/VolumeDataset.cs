@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using Unity.Collections;
+using Unity.Jobs;
 
 namespace UnityVolumeRendering
 {
@@ -18,17 +20,13 @@ namespace UnityVolumeRendering
 
         private int minDataValue = int.MaxValue;
         private int maxDataValue = int.MinValue;
-        private Texture3D dataTexture = null;
+        public Texture3D dataTexture = null;
         private Texture3D gradientTexture = null;
-
-        public InternalTextureJob internalJob;
+        public NativeArray<Color> cols_native;
+        public NativeArray<int> data_native;
 
         public Texture3D GetDataTexture()
         {
-            if (dataTexture == null)
-            {
-                dataTexture = CreateTextureInternal();
-            }
             return dataTexture;
         }
 
@@ -68,25 +66,38 @@ namespace UnityVolumeRendering
             }
         }
 
-        private Texture3D CreateTextureInternal()
+        public void CreateTextureInternal()
         {
             TextureFormat texformat = SystemInfo.SupportsTextureFormat(TextureFormat.RHalf) ? TextureFormat.RHalf : TextureFormat.RFloat;
-            Texture3D texture = new Texture3D(dimX, dimY, dimZ, texformat, false);
-            texture.wrapMode = TextureWrapMode.Clamp;
+            dataTexture = new Texture3D(dimX, dimY, dimZ, texformat, false);
+
+            dataTexture.wrapMode = TextureWrapMode.Clamp;
 
             int minValue = GetMinDataValue();
             int maxValue = GetMaxDataValue();
             int maxRange = maxValue - minValue;
-            Debug.Log("Current memory usage: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
+            //Debug.Log("Current memory usage: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
             System.GC.Collect();
-            Debug.Log("Current memory usage after collection: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
+            //Debug.Log("Current memory usage after collection: " + String.Format("{0:n0}", System.GC.GetTotalMemory(false)));
             Debug.Log("More required: " + String.Format("{0:n0}", data.Length));
 
-            Color[] cols = new Color[data.Length];
-            for(int i = 0; i < dimX * dimY * dimZ; i++)
+            cols_native = new NativeArray<Color>(data.Length, Allocator.Persistent);
+            data_native = new NativeArray<int>(data, Allocator.Persistent);
+            InternalTexJob job = new InternalTexJob()
             {
-                cols[i] = new Color((float)(data[i] - minValue) / maxRange, 0.0f, 0.0f, 0.0f);
-            }
+                minValue = minValue,
+                maxRange = maxRange,
+                DatasetData = data_native,
+                ColorData = cols_native
+            };
+
+
+            //JobHandle jobHandle = job.Schedule(dimX * dimY * dimZ, 64);
+            //GameMaster.jobHandles.Add(jobHandle);
+
+            
+//            Color[] cols = new Color[];
+            
             
 //            for (int x = 0; x < dimX; x++)
 //            {
@@ -99,9 +110,9 @@ namespace UnityVolumeRendering
 //                    }
 //                }
 //            }
-            texture.SetPixels(cols);
-            texture.Apply();
-            return texture;
+            //texture.SetPixels(cols);
+            //texture.Apply();
+            //cols_native.Dispose();
         }
 
         private Texture3D CreateGradientTextureInternal()

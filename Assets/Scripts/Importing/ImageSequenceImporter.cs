@@ -93,11 +93,15 @@ namespace UnityVolumeRendering
             {
                 throw new IndexOutOfRangeException("Beyond reasonable size, " + face_dim + " * " + resize_dimensions.z + " greater than Int32's max val");
             }
+            
+            Debug.Log("Starting Dimension assertions.");
 
             if (!AssertIdenticalDimension(imagePaths, flat_dimensions))
                 throw new IndexOutOfRangeException("Image sequence has non-uniform dimensions");
 
+            Debug.Log("Starting Data fill.");
             int[] data = FillSequentialData(resize_dimensions, imagePaths, slice_range);
+
             
             VolumeDataset dataset = FillVolumeDataset(data, volume_dimensions, resize_dimensions);
 

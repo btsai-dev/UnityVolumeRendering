@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
+using Unity.Jobs;
 
 namespace UnityVolumeRendering
 {
@@ -53,6 +54,12 @@ namespace UnityVolumeRendering
 
         [HideInInspector]
         public Vector3 disp_top_pos;
+        
+        [HideInInspector]
+        private float multiplier;
+
+        [HideInInspector]
+        public static List<JobHandle> jobHandles = new List<JobHandle>();
 
         // Start is called before the first frame update
         void Start()
@@ -80,7 +87,7 @@ namespace UnityVolumeRendering
             {
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 234, 1);
                 //loadNew(DefaultFolder, new Vector2Int(512, 512), 300, 1);
-                Vector2Int slice_range = new Vector2Int(0, 1000);
+                Vector2Int slice_range = new Vector2Int(0, 500);
                 loadNew(DefaultFolder, new Vector2Int(512, 512), slice_range, 1);
             }
             else
@@ -163,8 +170,14 @@ namespace UnityVolumeRendering
             renderedObj.SetVisibilityWindow(values);
         }
 
+        private struct obj_creation
+        {
+            JobHandle jobHandle;
+        }
+
         private void loadNew(string folder, Vector2Int resize, Vector2Int slice_range, float multiplier)
         {
+            this.multiplier = multiplier;
             // Destroy existing versions
             VolumeRenderedObject[] objects = GameObject.FindObjectsOfType<VolumeRenderedObject>();
             CrossSectionPlane[] planes = GameObject.FindObjectsOfType<CrossSectionPlane>();
@@ -182,22 +195,50 @@ namespace UnityVolumeRendering
             // Display volumetric object
             importer = new ImageSequenceImporter(DefaultFolder);
             dataset = importer.Import(resize.x, resize.y, slice_range);
-
-
-            renderedObj = VolumeObjectFactory.CreateObject(dataset, multiplier);
-
-            GameObject g_renderedObj = renderedObj.transform.gameObject;
-            Vector3 targetPos = new Vector3()
-            {
-                x = disp_top_pos.x,
-                y = disp_top_pos.y + renderedObj.GetComponentInChildren<MeshRenderer>().bounds.extents.y * 1.5f,
-                z = disp_top_pos.z
-            };
-
-            g_renderedObj.transform.position = targetPos;
-            g_renderedObj.transform.rotation = Quaternion.Euler(-90, 0, 0);
             
-            VolumeObjectFactory.SpawnCrossSectionPlane(renderedObj, multiplier);
+            dataset.CreateTextureInternal();
+        }
+
+        void Update()
+        {
+            // JobHandle.ScheduleBatchedJobs();
+        }
+
+        void LateUpdate()
+        {
+            /*
+            foreach(JobHandle jobHandle in jobHandles)
+            {
+                if (jobHandle.IsCompleted)
+                {
+                    jobHandle.Complete();
+                    Debug.Log("Job Complete?");
+                    dataset.data_native.Dispose();
+
+                    Color[] cols = new Color[dataset.cols_native.Length];
+                    dataset.cols_native.CopyTo(cols);
+                    dataset.dataTexture.SetPixels(cols);
+                    dataset.dataTexture.Apply();
+                    
+                    renderedObj = VolumeObjectFactory.CreateObject(dataset, multiplier);
+
+                    GameObject g_renderedObj = renderedObj.transform.gameObject;
+                    Vector3 targetPos = new Vector3()
+                    {
+                        x = disp_top_pos.x,
+                        y = disp_top_pos.y + renderedObj.GetComponentInChildren<MeshRenderer>().bounds.extents.y * 1.5f,
+                        z = disp_top_pos.z
+                    };
+
+                    g_renderedObj.transform.position = targetPos;
+                    g_renderedObj.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                    
+                    VolumeObjectFactory.SpawnCrossSectionPlane(renderedObj, multiplier);
+                    
+                    dataset.cols_native.Dispose();
+                }
+            }
+            */
         }
     }
 }
